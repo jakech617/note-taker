@@ -3,24 +3,37 @@ const noteData = require('../data/noteData');
 const data = fs.readFileSync('./db/db.json', 'utf8');
 const notes = JSON.parse(data);
 
+
 for (i = 0; i < notes.length; i++) {
     notes[i].id = '' + i;
-};
+}
 
 module.exports = (app) => {
     
     app.get('/api/notes', (req, res) => {
-        res.json(notes);
+        res.json(noteData);
     });
     
     app.post('/api/notes', (req, res) => {
         noteData.push(req.body);
-        fs.writeFileSync('./db/db.json', JSON.stringify(noteData), 'utf8');
+        req.body.id = notes.length++;
         res.json(true);
     });
 
-    app.delete('/api/notes/:id', (req, res) => {
-        noteData.length = 0;
-        res.json({ ok: true });
-    });
+    // app.delete(`/api/notes/${notes.id}`, (req, res) => {
+        
+    //     const targetId = (item) => {
+    //         if (item.id !== req.body.id) {
+    //             return true;
+    //         } else {
+    //             return false;
+    //         };
+    //     };
+    
+    //     let filteredNotes = noteData.filter(targetId()); 
+    //     writeToJsonFile(filteredNotes);
+    //     notes = filteredNotes;
+        
+    //     res.json({ ok: true });
+    // });
 };

@@ -1,8 +1,3 @@
-const noteArray = [
-    {
-      'title': 'New Note',
-      'text': 'test'
-    },
-];
+const noteArray = [];
   
 module.exports = noteArray;
