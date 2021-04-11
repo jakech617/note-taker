@@ -20,20 +20,11 @@ module.exports = (app) => {
         res.json(true);
     });
 
-    // app.delete(`/api/notes/${notes.id}`, (req, res) => {
-        
-    //     const targetId = (item) => {
-    //         if (item.id !== req.body.id) {
-    //             return true;
-    //         } else {
-    //             return false;
-    //         };
-    //     };
-    
-    //     let filteredNotes = noteData.filter(targetId()); 
-    //     writeToJsonFile(filteredNotes);
-    //     notes = filteredNotes;
-        
-    //     res.json({ ok: true });
-    // });
+    app.delete('/api/notes/:id', (req, res) => {
+        let note = noteData.find(({id}) => id === JSON.parse(req.params.id));
+
+        noteData.splice(noteData.indexOf(note), 1);
+
+        res.end();
+    });
 };
